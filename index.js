@@ -1,3 +1,4 @@
+import { serveStatic } from '@hono/node-server/serve-static';
 import "dotenv/config";
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
@@ -8,6 +9,8 @@ import jwt from "jsonwebtoken";
 import { setCookie, getCookie } from "hono/cookie";
 
 const app = new Hono();
+
+app.use('/*', serveStatic({ root: './public' }));
 
 app.get("/", (c) => {
   return c.html("<h1>Tim Pengembang</h1><h2>Nama Kalian</h2>");
