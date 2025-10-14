@@ -1,57 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
- 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registrasi</title>
-</head>
- 
-<body>
-  <div class="container">
-    <h1>Registrasi Akun Baru</h1>
-    <div id="message"></div>
-    <form id="registrationForm">
-      <input type="text" id="username" placeholder="Username" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Daftar</button>
-    </form>
-    <p>Sudah punya akun? <a href="/login/">Login di sini</a></p>
-  </div>
- 
-  <script>
-    const form = document.getElementById('registrationForm');
-    const messageDiv = document.getElementById('message');
- 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      messageDiv.textContent = '';
-      messageDiv.style.color = 'red';
- 
-      try {
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-        });
- 
-        const result = await response.json();
- 
-        if (result.success) {
-          messageDiv.style.color = 'green';
-          messageDiv.innerHTML =
-            'Registrasi berhasil! Silakan <a href="/login/">login</a>.';
-          form.reset();
-        } else {
-          messageDiv.textContent = result.message || 'Registrasi gagal!';
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrasi Akun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variabel Warna Seragam */
+        :root {
+            --primary-color: #007bff; /* Biru cerah yang elegan (Seragam dengan halaman Login) */
+            --primary-hover: #0056b3;
+            --background-color: #f8f9fa; /* Abu-abu sangat terang */
+            --card-color: #ffffff; /* Putih bersih */
+            --text-color: #343a40; /* Abu-abu gelap */
+            --placeholder-color: #adb5bd;
+            --border-color: #ced4da;
+            --error-color: #dc3545;
+            --success-color: #28a745;
         }
-      } catch (error) {
-        messageDiv.textContent = 'Terjadi kesalahan. Silakan coba lagi.';
-      }
-    });
-  </script>
+
+        /* 1. Reset dan Font Dasar */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color); /* Menggunakan variabel */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* 2. Styling Container Utama (Sama dengan halaman Login) */
+        .container {
+            background-color: var(--card-color);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 3. Styling Judul */
+        h1 {
+            font-weight: 600;
+            color: var(--primary-color); /* Menggunakan variabel */
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        /* 4. Styling Form */
+        #registrationForm {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* 5. Styling Input Fields (Sama dengan halaman Login) */
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px 20px; /* Padding lebih besar */
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--text-color);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        input::placeholder {
+            color: var(--placeholder-color);
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Bayangan fokus biru */
+            outline: none;
+        }
+
+        /* 6. Styling Tombol (Sama dengan halaman Login) */
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.99);
+        }
+
+        /* 7. Styling Message/Pesan */
+        #message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 500;
+            text-align: left;
+            min-height: 20px;
+        }
+
+        /* Styling warna pesan sukses/gagal yang lebih rapi (berdasarkan variabel) */
+        .message-success {
+            background-color: #e6ffe6;
+            color: var(--success-color) !important;
+            border: 1px solid var(--success-color);
+        }
+
+        .message-error {
+            background-color: #ffe6e6;
+            color: var(--error-color) !important;
+            border: 1px solid var(--error-color);
+        }
+
+        /* 8. Styling Link Login */
+        p {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Daftar Akun Baru</h1>
+        <div id="message"></div>
+        <form id="registrationForm">
+            <input type="text" id="username" placeholder="Username" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <button type="submit">Daftar</button>
+        </form>
+        <p>Sudah punya akun? <a href="/login/">Login di sini</a></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const messageDiv = document.getElementById('message');
+
+        const showMessage = (text, type) => {
+            messageDiv.textContent = text;
+            messageDiv.className = ''; // Hapus semua kelas sebelumnya
+            if (type === 'success') {
+                messageDiv.classList.add('message-success');
+            } else if (type === 'error') {
+                messageDiv.classList.add('message-error');
+            }
+        };
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            messageDiv.textContent = '';
+            messageDiv.className = '';
+
+            // Logika fetch ke API
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Tampilkan pesan sukses dengan link
+                    const successMessage = 'Registrasi berhasil! Silakan <a href="/login/">login</a>.';
+                    showMessage('', 'success');
+                    messageDiv.innerHTML = successMessage; // Gunakan innerHTML untuk tautan
+                    form.reset();
+                } else {
+                    showMessage(result.message || 'Registrasi gagal! Silakan coba nama pengguna lain.', 'error');
+                }
+            } catch (error) {
+                showMessage('Terjadi kesalahan jaringan. Silakan coba lagi.', 'error');
+            }
+        });
+    </script>
 </body>
- 
+
 </html>

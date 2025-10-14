@@ -1,25 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logging Out...</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logging Out...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variabel Warna Seragam */
+        :root {
+            --primary-color: #007bff;
+            --background-color: #f8f9fa;
+            --text-color: #343a40;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-color);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-weight: 400; /* Lebih ringan karena ini bukan judul utama aplikasi */
+            color: var(--text-color);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            /* Tambahkan sedikit animasi agar pengguna tahu ada sesuatu yang terjadi */
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Keyframes untuk efek loading yang halus */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Opsional: Tambahkan visual loading sederhana di bawah teks */
+        body::after {
+            content: '';
+            width: 50px;
+            height: 5px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            animation: loading-bar 1s infinite alternate;
+        }
+
+        @keyframes loading-bar {
+            0% { width: 50px; opacity: 0.5; }
+            100% { width: 100px; opacity: 1; }
+        }
+    </style>
 </head>
- 
+
 <body>
-  <h1>Anda sedang keluar...</h1>
-  <script>
-    (async () => {
-      try {
-        await fetch('/api/logout', { method: 'POST' });
-      } catch (error) {
-        console.error('Logout failed:', error);
-      } finally {
-        window.location.href = '/login/';
-      }
-    })();
-  </script>
+    <h1>Anda sedang keluar...</h1>
+    
+    <script>
+        (async () => {
+            // Memberi waktu sejenak agar animasi loading terlihat
+            await new Promise(resolve => setTimeout(resolve, 500)); 
+
+            try {
+                // Endpoint POST untuk logout
+                await fetch('/api/logout', { method: 'POST' });
+            } catch (error) {
+                console.error('Logout failed:', error);
+                // Kita tetap mengalihkan user, meskipun request fetch gagal.
+            } finally {
+                // Selalu alihkan ke halaman login setelah mencoba logout
+                window.location.href = '/login/';
+            }
+        })();
+    </script>
 </body>
- 
+
 </html>

@@ -1,32 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF--8" />
+
+<head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loading...</title>
-  </head>
-  <body>
-    <h1>Memeriksa status login...</h1>
- 
-    <script>
-      (async () => {
-        try {
-          const response = await fetch('/api/me');
-          if (response.ok) {
-            const { success } = await response.json();
-            if (success) {
-              window.location.href = '/todos/';
-            } else {
-              window.location.href = '/login/';
-            }
-          } else {
-            window.location.href = '/login/';
-          }
-        } catch (error) {
-          console.error('Error checking auth status:', error);
-          window.location.href = '/login/';
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variabel Warna Seragam */
+        :root {
+            --primary-color: #007bff;
+            --background-color: #f8f9fa;
+            --text-color: #343a40;
         }
-      })();
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-color);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-weight: 400; /* Lebih ringan dan elegan */
+            color: var(--text-color);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            /* Efek animasi untuk menunjukkan proses */
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Keyframes untuk efek pulsing (berkedip halus) */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Menambahkan visual loading sederhana di bawah teks */
+        body::after {
+            content: '';
+            width: 50px;
+            height: 5px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            animation: loading-bar 1s infinite alternate;
+        }
+
+        @keyframes loading-bar {
+            0% { width: 50px; opacity: 0.5; }
+            100% { width: 100px; opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Memeriksa status login...</h1>
+
+    <script>
+        (async () => {
+            // Opsional: Tambahkan penundaan singkat agar animasi terlihat
+            await new Promise(resolve => setTimeout(resolve, 500)); 
+            
+            try {
+                const response = await fetch('/api/me');
+                if (response.ok) {
+                    const { success } = await response.json();
+                    if (success) {
+                        // Jika sukses, alihkan ke halaman todos
+                        window.location.href = '/todos/';
+                    } else {
+                        // Jika tidak ada sesi aktif, alihkan ke halaman login
+                        window.location.href = '/login/';
+                    }
+                } else {
+                    // Jika respons HTTP tidak OK (misal 401), alihkan ke login
+                    window.location.href = '/login/';
+                }
+            } catch (error) {
+                console.error('Error checking auth status:', error);
+                // Jika terjadi kesalahan jaringan, alihkan ke login
+                window.location.href = '/login/';
+            }
+        })();
     </script>
-  </body>
+</body>
+
 </html>

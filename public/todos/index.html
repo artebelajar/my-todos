@@ -1,97 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Todos</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Todos</title>
+    <style>
+        /* Mengimpor font Poppins */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #007bff; /* Biru cerah yang elegan */
+            --primary-hover: #0056b3;
+            --background-color: #f8f9fa; /* Abu-abu sangat terang untuk latar belakang */
+            --card-color: #ffffff; /* Putih bersih untuk kontainer */
+            --text-color: #343a40; /* Abu-abu gelap untuk teks */
+            --placeholder-color: #adb5bd;
+            --border-color: #ced4da;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Ubah ke flex-start agar konten muncul di atas */
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px; /* Tambahkan padding agar ada ruang di bagian atas dan bawah */
+            color: var(--text-color);
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+
+        /* Kontainer Utama Mirip Kartu */
+        .main-container {
+            width: 100%;
+            max-width: 600px; /* Lebar yang lebih besar untuk daftar tugas */
+            background-color: var(--card-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .main-container:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color); /* Garis pemisah yang bersih */
+        }
+
+        header h1 {
+            color: var(--text-color);
+            font-size: 1.8em;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        header #username {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        header a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        header a:hover {
+            background-color: var(--primary-color);
+            color: var(--card-color);
+        }
+
+        /* Main Content */
+        main h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Form Tambah Todo */
+        #addTodoForm {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        #addTodoForm input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--text-color);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #addTodoForm input::placeholder {
+            color: var(--placeholder-color);
+        }
+
+        #addTodoForm input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        #addTodoForm button {
+            background-color: var(--success-color); /* Warna hijau untuk "Tambah" */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        #addTodoForm button:hover {
+            background-color: #1e7e34;
+        }
+
+        /* Daftar Todo */
+        #todoList {
+            list-style: none;
+            padding: 0;
+        }
+
+        #todoList li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: var(--background-color);
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color); /* Garis penanda todo */
+            font-size: 16px;
+            color: var(--text-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        #todoList li:hover {
+            transform: translateX(5px);
+            background-color: #f1f3f5;
+        }
+    </style>
 </head>
- 
+
 <body>
-  <div>
-    <header>
-      <h1>Halo, <span id="username"></span>!</h1>
-      <a href="/logout/">Logout</a>
-    </header>
- 
-    <main>
-      <h2>Todos Anda</h2>
-      <form id="addTodoForm">
-        <input type="text" id="noteInput" placeholder="Apa yang perlu dilakukan?" required />
-        <button type="submit">Tambah</button>
-      </form>
-      <ul id="todoList"></ul>
-    </main>
-  </div>
- 
-  <script>
-    const usernameSpan = document.getElementById('username');
-    const addTodoForm = document.getElementById('addTodoForm');
-    const noteInput = document.getElementById('noteInput');
-    const todoList = document.getElementById('todoList');
- 
-    // 1. Periksa status login & dapatkan data pengguna
-    (async () => {
-      try {
-        const response = await fetch('/api/me');
-        if (!response.ok) {
-          window.location.href = '/login/';
-          return;
-        }
-        const { success, data } = await response.json();
-        if (success) {
-          usernameSpan.textContent = data.username;
-          fetchTodos(); // Muat todos setelah user terverifikasi
-        } else {
-          window.location.href = '/login/';
-        }
-      } catch (error) {
-        window.location.href = '/login/';
-      }
-    })();
- 
-    // 2. Fungsi untuk mengambil dan menampilkan todos
-    const fetchTodos = async () => {
-      try {
-        const response = await fetch('/api/todos'); // Endpoint GET
-        const { success, data } = await response.json();
-        if (success) {
-          todoList.innerHTML = ''; // Kosongkan daftar
-          data.forEach((todo) => {
-            const li = document.createElement('li');
-            li.textContent = todo.note;
-            todoList.appendChild(li);
-          });
-        }
-      } catch (error) {
-        console.error('Gagal mengambil todos:', error);
-      }
-    };
- 
-    // 3. Event listener untuk menambah todo baru
-    addTodoForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const note = noteInput.value;
-      if (!note) return;
- 
-      try {
-        const response = await fetch('/api/todos', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ note }),
+    <div class="main-container"> 
+        <header>
+            <h1>Halo, <span id="username">Pengguna</span>!</h1>
+            <a href="/logout/">Logout</a>
+        </header>
+
+        <main>
+            <h2>Daftar Tugas</h2>
+            <form id="addTodoForm">
+                <input type="text" id="noteInput" placeholder="Apa yang perlu dilakukan?" required />
+                <button type="submit">Tambah</button>
+            </form>
+            <ul id="todoList">
+                </ul>
+        </main>
+    </div>
+
+    <script>
+        // Mengubah sedikit struktur untuk menggunakan kelas main-container
+        const usernameSpan = document.getElementById('username');
+        const addTodoForm = document.getElementById('addTodoForm');
+        const noteInput = document.getElementById('noteInput');
+        const todoList = document.getElementById('todoList');
+
+        // 1. Periksa status login & dapatkan data pengguna
+        (async () => {
+            try {
+                // Fetch untuk '/api/me'
+                const response = await fetch('/api/me');
+                if (!response.ok) {
+                    window.location.href = '/login/';
+                    return;
+                }
+                const { success, data } = await response.json();
+                if (success) {
+                    usernameSpan.textContent = data.username;
+                    fetchTodos(); // Muat todos setelah user terverifikasi
+                } else {
+                    window.location.href = '/login/';
+                }
+            } catch (error) {
+                // Tangani kesalahan jaringan atau server
+                window.location.href = '/login/';
+            }
+        })();
+
+        // 2. Fungsi untuk mengambil dan menampilkan todos
+        const fetchTodos = async () => {
+            try {
+                const response = await fetch('/api/todos'); // Endpoint GET
+                const { success, data } = await response.json();
+                if (success) {
+                    todoList.innerHTML = ''; // Kosongkan daftar
+                    if (data.length === 0) {
+                        const emptyMessage = document.createElement('li');
+                        emptyMessage.textContent = 'Belum ada tugas. Tambahkan yang pertama!';
+                        emptyMessage.style.borderLeft = '5px solid var(--placeholder-color)';
+                        emptyMessage.style.fontStyle = 'italic';
+                        todoList.appendChild(emptyMessage);
+                        return;
+                    }
+                    data.forEach((todo) => {
+                        const li = document.createElement('li');
+                        li.textContent = todo.note;
+                        // Anda bisa menambahkan tombol hapus/selesai di sini jika perlu
+                        todoList.appendChild(li);
+                    });
+                }
+            } catch (error) {
+                console.error('Gagal mengambil todos:', error);
+            }
+        };
+
+        // 3. Event listener untuk menambah todo baru
+        addTodoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const note = noteInput.value.trim();
+            if (!note) return;
+
+            try {
+                const response = await fetch('/api/todos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ note }),
+                });
+                const { success } = await response.json();
+                if (success) {
+                    noteInput.value = '';
+                    fetchTodos(); // Muat ulang daftar todos
+                } else {
+                    alert('Gagal menambah tugas. Silakan coba lagi.');
+                }
+            } catch (error) {
+                console.error('Gagal menambah todo:', error);
+            }
         });
-        const { success } = await response.json();
-        if (success) {
-          noteInput.value = '';
-          fetchTodos(); // Muat ulang daftar todos
-        }
-      } catch (error) {
-        console.error('Gagal menambah todo:', error);
-      }
-    });
- 
- 
-  </script>
+
+
+    </script>
 </body>
- 
+
 </html>
