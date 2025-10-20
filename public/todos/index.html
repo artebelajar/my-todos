@@ -10,14 +10,16 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
         :root {
-            --primary-color: #007bff; /* Biru cerah yang elegan */
+            --primary-color: #007bff;
             --primary-hover: #0056b3;
-            --background-color: #f8f9fa; /* Abu-abu sangat terang untuk latar belakang */
-            --card-color: #ffffff; /* Putih bersih untuk kontainer */
-            --text-color: #343a40; /* Abu-abu gelap untuk teks */
+            --background-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #343a40;
             --placeholder-color: #adb5bd;
             --border-color: #ced4da;
             --success-color: #28a745;
+            --danger-color: #dc3545;
+            --complete-color: #17a2b8;
         }
 
         body {
@@ -25,19 +27,18 @@
             background-color: var(--background-color);
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Ubah ke flex-start agar konten muncul di atas */
+            align-items: flex-start;
             min-height: 100vh;
             margin: 0;
-            padding: 40px 20px; /* Tambahkan padding agar ada ruang di bagian atas dan bawah */
+            padding: 40px 20px;
             color: var(--text-color);
             line-height: 1.6;
             box-sizing: border-box;
         }
 
-        /* Kontainer Utama Mirip Kartu */
         .main-container {
             width: 100%;
-            max-width: 600px; /* Lebar yang lebih besar untuk daftar tugas */
+            max-width: 600px;
             background-color: var(--card-color);
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -56,7 +57,7 @@
             align-items: center;
             margin-bottom: 30px;
             padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color); /* Garis pemisah yang bersih */
+            border-bottom: 2px solid var(--border-color);
         }
 
         header h1 {
@@ -86,14 +87,6 @@
             color: var(--card-color);
         }
 
-        /* Main Content */
-        main h2 {
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
         /* Form Tambah Todo */
         #addTodoForm {
             display: flex;
@@ -101,28 +94,16 @@
             margin-bottom: 30px;
         }
 
-        #addTodoForm input {
+        #addTodoForm input[type="text"] {
             flex-grow: 1;
             padding: 12px 15px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 16px;
-            color: var(--text-color);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        #addTodoForm input::placeholder {
-            color: var(--placeholder-color);
-        }
-
-        #addTodoForm input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
-            outline: none;
         }
 
         #addTodoForm button {
-            background-color: var(--success-color); /* Warna hijau untuk "Tambah" */
+            background-color: var(--success-color);
             color: white;
             border: none;
             padding: 12px 20px;
@@ -137,33 +118,111 @@
             background-color: #1e7e34;
         }
 
-        /* Daftar Todo */
+        /* Daftar Todo & Aksi BARU */
         #todoList {
             list-style: none;
             padding: 0;
         }
 
         #todoList li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 15px;
             margin-bottom: 10px;
             background-color: var(--background-color);
             border-radius: 8px;
-            border-left: 5px solid var(--primary-color); /* Garis penanda todo */
+            border-left: 5px solid var(--primary-color);
             font-size: 16px;
-            color: var(--text-color);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s;
+            transition: transform 0.2s, border-left-color 0.3s, opacity 0.3s;
         }
 
         #todoList li:hover {
-            transform: translateX(5px);
+            transform: translateX(3px);
             background-color: #f1f3f5;
+        }
+
+        /* GAYA UNTUK COMPLETED TODO (CORE FUNCTIONALITY) */
+        #todoList li.completed {
+            border-left-color: var(--success-color);
+            opacity: 0.7;
+        }
+
+        #todoList li.completed .todo-note {
+            text-decoration: line-through;
+            /* Coret teks! */
+            color: var(--placeholder-color);
+        }
+
+        /* END: GAYA UNTUK COMPLETED TODO */
+
+        .todo-content {
+            display: flex;
+            align-items: center;
+            flex-grow: 1; /* Memastikan konten todo memanjang */
+            margin-right: 15px;
+            word-break: break-word;
+        }
+        
+        /* Gaya untuk checkbox */
+        .complete-checkbox {
+            /* Hapus margin agar sejajar */
+            margin-right: 15px; 
+            min-width: 20px; /* Lebar minimum untuk area klik yang lebih baik */
+            height: 20px;
+            cursor: pointer;
+            /* Modifikasi tampilan default checkbox jika diinginkan */
+            transform: scale(1.2); 
+            accent-color: var(--success-color); /* Mengubah warna default checkbox */
+        }
+
+        .todo-note {
+            /* Menghilangkan flex-grow dari sini karena sudah ada di .todo-content */
+            transition: all 0.3s;
+        }
+
+
+        .todo-actions {
+             /* Pastikan ini tetap ada untuk tombol Hapus */
+            display: flex;
+            align-items: center;
+        }
+
+        .todo-actions button {
+            padding: 8px 12px;
+            margin-left: 8px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        /* Hapus gaya untuk tombol "Selesai" lama */
+        /* .complete-btn {
+            background-color: var(--complete-color);
+            color: white;
+        }
+        .complete-btn:hover {
+            background-color: #138496;
+        } */
+
+        .delete-btn {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 
 <body>
-    <div class="main-container"> 
+    <div class="main-container">
         <header>
             <h1>Halo, <span id="username">Pengguna</span>!</h1>
             <a href="/logout/">Logout</a>
@@ -176,46 +235,148 @@
                 <button type="submit">Tambah</button>
             </form>
             <ul id="todoList">
-                </ul>
+            </ul>
         </main>
     </div>
 
     <script>
-        // Mengubah sedikit struktur untuk menggunakan kelas main-container
         const usernameSpan = document.getElementById('username');
         const addTodoForm = document.getElementById('addTodoForm');
         const noteInput = document.getElementById('noteInput');
         const todoList = document.getElementById('todoList');
 
-        // 1. Periksa status login & dapatkan data pengguna
-        (async () => {
+        // Mengganti endpoint updateStatus agar menerima status baru (pending/completed)
+        const api = {
+            delete: (id) => fetch(`/api/todos/${id}`, {
+                method: 'DELETE'
+            }),
+            updateStatus: (id, newStatus) => fetch(`/api/todos/${id}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    status: newStatus
+                })
+            })
+        };
+
+        const renderTodo = (todo) => {
+            const li = document.createElement('li');
+            li.setAttribute('data-id', todo.id);
+            // Menentukan status awal kelas berdasarkan data todo
+            const isCompleted = todo.status !== "pending";
+
+            if (isCompleted) {
+                li.classList.add('completed');
+            }
+
+            // --- 1. Struktur Konten Baru untuk Checklist dan Catatan ---
+            const todoContent = document.createElement('div');
+            todoContent.classList.add('todo-content');
+            li.appendChild(todoContent);
+
+            // --- 2. Ganti Tombol dengan Input Checkbox ---
+            const completeCheckbox = document.createElement('input');
+            completeCheckbox.type = 'checkbox';
+            completeCheckbox.classList.add('complete-checkbox');
+            completeCheckbox.checked = isCompleted; // Set status checked awal
+
+            // Menambahkan event listener ke checkbox
+            completeCheckbox.addEventListener('change', (e) => {
+                // Status baru adalah kebalikan dari status checked saat ini
+                const newStatus = e.target.checked ? "completed" : "pending";
+                toggleComplete(li, todo.id, e.target.checked, completeCheckbox);
+            });
+
+            todoContent.appendChild(completeCheckbox);
+
+            const noteText = document.createElement('span');
+            noteText.classList.add('todo-note');
+            noteText.textContent = todo.note;
+            todoContent.appendChild(noteText); // Masukkan di dalam todoContent
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.classList.add('todo-actions');
+
+            // --- 3. Hapus Baris Pembuatan Tombol completeBtn Lama ---
+            // const completeBtn = document.createElement('button');
+            // ... (Kode tombol lama dihapus)
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('delete-btn');
+            deleteBtn.textContent = 'Hapus';
+            deleteBtn.addEventListener('click', () => deleteTodo(todo.id));
+            actionsDiv.appendChild(deleteBtn);
+
+            li.appendChild(actionsDiv);
+            return li;
+        };
+
+        const toggleComplete = async (li, id, isChecked, checkboxElement) => {
+            const currentStatus = !isChecked; // Status lama sebelum diklik
+            const newStatus = isChecked ? "completed" : "pending";
+
+            // Update UI segera
+            li.classList.toggle('completed', isChecked);
+            checkboxElement.disabled = true;
+
             try {
-                // Fetch untuk '/api/me'
-                const response = await fetch('/api/me');
-                if (!response.ok) {
-                    window.location.href = '/login/';
-                    return;
-                }
-                const { success, data } = await response.json();
-                if (success) {
-                    usernameSpan.textContent = data.username;
-                    fetchTodos(); // Muat todos setelah user terverifikasi
+                // Panggil API dengan status baru yang benar (completed atau pending)
+                const response = await api.updateStatus(id, newStatus);
+                const result = await response.json();
+
+                if (result.success) {
+                    // Berhasil, tidak perlu fetch ulang jika API tidak mengubah urutan
+                    // Jika urutan diubah oleh server, panggil fetchTodos(); 
+                    // fetchTodos(); 
                 } else {
-                    window.location.href = '/login/';
+                    // Jika gagal, kembalikan UI ke status lama
+                    li.classList.toggle('completed', currentStatus);
+                    checkboxElement.checked = currentStatus;
+                    console.error(result.message || 'Gagal mengubah status tugas.');
                 }
             } catch (error) {
-                // Tangani kesalahan jaringan atau server
-                window.location.href = '/login/';
+                // Jika terjadi kesalahan jaringan, kembalikan UI ke status lama
+                li.classList.toggle('completed', currentStatus);
+                checkboxElement.checked = currentStatus;
+                console.error('Terjadi kesalahan jaringan saat mengubah status.', error);
+            } finally {
+                checkboxElement.disabled = false;
             }
-        })();
+        };
 
-        // 2. Fungsi untuk mengambil dan menampilkan todos
+        const deleteTodo = async (id) => {
+            if (!window.confirm('Yakin ingin menghapus tugas ini secara permanen?')) return;
+
+            try {
+                const response = await api.delete(id);
+                const result = await response.json();
+                if (result.success) {
+                    // Hapus elemen dari DOM
+                    const todoElement = document.querySelector(`li[data-id="${id}"]`);
+                    if (todoElement) {
+                        todoElement.remove();
+                    }
+                    fetchTodos(); // Panggil fetch untuk memastikan sinkronisasi UI
+                } else {
+                    console.error(result.message || 'Gagal menghapus tugas.');
+                }
+            } catch (error) {
+                console.error('Terjadi kesalahan jaringan saat menghapus.', error);
+            }
+        };
+
         const fetchTodos = async () => {
             try {
-                const response = await fetch('/api/todos'); // Endpoint GET
-                const { success, data } = await response.json();
+                const response = await fetch('/api/todos');
+                const {
+                    success,
+                    data
+                } = await response.json();
                 if (success) {
-                    todoList.innerHTML = ''; // Kosongkan daftar
+                    todoList.innerHTML = '';
+
                     if (data.length === 0) {
                         const emptyMessage = document.createElement('li');
                         emptyMessage.textContent = 'Belum ada tugas. Tambahkan yang pertama!';
@@ -224,11 +385,16 @@
                         todoList.appendChild(emptyMessage);
                         return;
                     }
+
+                    // Logika pengurutan tetap dipertahankan
+                    data.sort((a, b) => {
+                        const statusA = a.status === "pending" ? 0 : 1;
+                        const statusB = b.status === "pending" ? 0 : 1;
+                        return statusA - statusB;
+                    });
+
                     data.forEach((todo) => {
-                        const li = document.createElement('li');
-                        li.textContent = todo.note;
-                        // Anda bisa menambahkan tombol hapus/selesai di sini jika perlu
-                        todoList.appendChild(li);
+                        todoList.appendChild(renderTodo(todo));
                     });
                 }
             } catch (error) {
@@ -236,7 +402,6 @@
             }
         };
 
-        // 3. Event listener untuk menambah todo baru
         addTodoForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const note = noteInput.value.trim();
@@ -245,22 +410,50 @@
             try {
                 const response = await fetch('/api/todos', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ note }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        note,
+                        status: "pending"
+                    }), // Pastikan status awal adalah pending
                 });
-                const { success } = await response.json();
+                const {
+                    success
+                } = await response.json();
                 if (success) {
                     noteInput.value = '';
-                    fetchTodos(); // Muat ulang daftar todos
+                    fetchTodos();
                 } else {
-                    alert('Gagal menambah tugas. Silakan coba lagi.');
+                    console.error('Gagal menambah tugas. Silakan coba lagi.');
                 }
             } catch (error) {
                 console.error('Gagal menambah todo:', error);
             }
         });
 
-
+        // --- 6. Inisialisasi ---
+        (async () => {
+            try {
+                const response = await fetch('/api/me');
+                if (!response.ok) {
+                    window.location.href = '/login/';
+                    return;
+                }
+                const {
+                    success,
+                    data
+                } = await response.json();
+                if (success) {
+                    usernameSpan.textContent = data.username;
+                    fetchTodos();
+                } else {
+                    window.location.href = '/login/';
+                }
+            } catch (error) {
+                window.location.href = '/login/';
+            }
+        })();
     </script>
 </body>
 

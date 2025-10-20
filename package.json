@@ -9,7 +9,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push:pg",
-    "db:seed": "node db/seed.js"
+    "db:seed": "node db/seed.js",
+    "start":"node index.js",
+    "build":"echo 'No dedicated build step needed, running install' && npm install"
   },
   "keywords": [],
   "author": "",
