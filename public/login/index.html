@@ -170,6 +170,8 @@
 
                 const result = await response.json();
 
+                console.log('Respons login:', result);
+
                 if (result.success) {
                     messageDiv.style.color = 'green';
                     messageDiv.textContent = 'Login berhasil! Mengalihkan...';

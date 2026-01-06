@@ -1,208 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Todos</title>
     <style>
-        /* Mengimpor font Poppins */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+      /* Mengimpor font Poppins */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
-        :root {
-            --primary-color: #007bff;
-            --primary-hover: #0056b3;
-            --background-color: #f8f9fa;
-            --card-color: #ffffff;
-            --text-color: #343a40;
-            --placeholder-color: #adb5bd;
-            --border-color: #ced4da;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --complete-color: #17a2b8;
-        }
+      :root {
+        --primary-color: #007bff;
+        --primary-hover: #0056b3;
+        --background-color: #f8f9fa;
+        --card-color: #ffffff;
+        --text-color: #343a40;
+        --placeholder-color: #adb5bd;
+        --border-color: #ced4da;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --complete-color: #17a2b8;
+      }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding: 40px 20px;
-            color: var(--text-color);
-            line-height: 1.6;
-            box-sizing: border-box;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--background-color);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        margin: 0;
+        padding: 40px 20px;
+        color: var(--text-color);
+        line-height: 1.6;
+        box-sizing: border-box;
+      }
 
-        .main-container {
-            width: 100%;
-            max-width: 600px;
-            background-color: var(--card-color);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            transition: box-shadow 0.3s ease-in-out;
-        }
+      .main-container {
+        width: 100%;
+        max-width: 600px;
+        background-color: var(--card-color);
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        transition: box-shadow 0.3s ease-in-out;
+      }
 
-        .main-container:hover {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
+      .main-container:hover {
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
 
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
-        }
+      /* Header */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--border-color);
+      }
 
-        header h1 {
-            color: var(--text-color);
-            font-size: 1.8em;
-            margin: 0;
-            font-weight: 400;
-        }
+      header h1 {
+        color: var(--text-color);
+        font-size: 1.8em;
+        margin: 0;
+        font-weight: 400;
+      }
 
-        header #username {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
+      header #username {
+        color: var(--primary-color);
+        font-weight: 600;
+      }
 
-        header a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 15px;
-            border: 1px solid var(--primary-color);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
+      header a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 8px 15px;
+        border: 1px solid var(--primary-color);
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
 
-        header a:hover {
-            background-color: var(--primary-color);
-            color: var(--card-color);
-        }
+      header a:hover {
+        background-color: var(--primary-color);
+        color: var(--card-color);
+      }
 
-        /* Form Tambah Todo */
-        #addTodoForm {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
+      /* Form Tambah Todo */
+      #addTodoForm {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+      }
 
-        #addTodoForm input[type="text"] {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 16px;
-        }
+      #addTodoForm input[type="text"] {
+        flex-grow: 1;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 16px;
+      }
 
-        #addTodoForm button {
-            background-color: var(--success-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
+      #addTodoForm button {
+        background-color: var(--success-color);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
 
-        #addTodoForm button:hover {
-            background-color: #1e7e34;
-        }
+      #addTodoForm button:hover {
+        background-color: #1e7e34;
+      }
 
-        /* Daftar Todo & Aksi BARU */
-        #todoList {
-            list-style: none;
-            padding: 0;
-        }
+      /* Daftar Todo & Aksi BARU */
+      #todoList {
+        list-style: none;
+        padding: 0;
+      }
 
-        #todoList li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background-color: var(--background-color);
-            border-radius: 8px;
-            border-left: 5px solid var(--primary-color);
-            font-size: 16px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s, border-left-color 0.3s, opacity 0.3s;
-        }
+      #todoList li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: var(--background-color);
+        border-radius: 8px;
+        border-left: 5px solid var(--primary-color);
+        font-size: 16px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s, border-left-color 0.3s, opacity 0.3s;
+      }
 
-        #todoList li:hover {
-            transform: translateX(3px);
-            background-color: #f1f3f5;
-        }
+      #todoList li:hover {
+        transform: translateX(3px);
+        background-color: #f1f3f5;
+      }
 
-        /* GAYA UNTUK COMPLETED TODO (CORE FUNCTIONALITY) */
-        #todoList li.completed {
-            border-left-color: var(--success-color);
-            opacity: 0.7;
-        }
+      /* GAYA UNTUK COMPLETED TODO (CORE FUNCTIONALITY) */
+      #todoList li.completed {
+        border-left-color: var(--success-color);
+        opacity: 0.7;
+      }
 
-        #todoList li.completed .todo-note {
-            text-decoration: line-through;
-            /* Coret teks! */
-            color: var(--placeholder-color);
-        }
+      #todoList li.completed .todo-note {
+        text-decoration: line-through;
+        /* Coret teks! */
+        color: var(--placeholder-color);
+      }
 
-        /* END: GAYA UNTUK COMPLETED TODO */
+      /* END: GAYA UNTUK COMPLETED TODO */
 
-        .todo-content {
-            display: flex;
-            align-items: center;
-            flex-grow: 1; /* Memastikan konten todo memanjang */
-            margin-right: 15px;
-            word-break: break-word;
-        }
-        
-        /* Gaya untuk checkbox */
-        .complete-checkbox {
-            /* Hapus margin agar sejajar */
-            margin-right: 15px; 
-            min-width: 20px; /* Lebar minimum untuk area klik yang lebih baik */
-            height: 20px;
-            cursor: pointer;
-            /* Modifikasi tampilan default checkbox jika diinginkan */
-            transform: scale(1.2); 
-            accent-color: var(--success-color); /* Mengubah warna default checkbox */
-        }
+      .todo-content {
+        display: flex;
+        align-items: center;
+        flex-grow: 1; /* Memastikan konten todo memanjang */
+        margin-right: 15px;
+        word-break: break-word;
+      }
 
-        .todo-note {
-            /* Menghilangkan flex-grow dari sini karena sudah ada di .todo-content */
-            transition: all 0.3s;
-        }
+      /* Gaya untuk checkbox */
+      .complete-checkbox {
+        /* Hapus margin agar sejajar */
+        margin-right: 15px;
+        min-width: 20px; /* Lebar minimum untuk area klik yang lebih baik */
+        height: 20px;
+        cursor: pointer;
+        /* Modifikasi tampilan default checkbox jika diinginkan */
+        transform: scale(1.2);
+        accent-color: var(
+          --success-color
+        ); /* Mengubah warna default checkbox */
+      }
 
+      .todo-note {
+        /* Menghilangkan flex-grow dari sini karena sudah ada di .todo-content */
+        transition: all 0.3s;
+      }
 
-        .todo-actions {
-             /* Pastikan ini tetap ada untuk tombol Hapus */
-            display: flex;
-            align-items: center;
-        }
+      .todo-actions {
+        /* Pastikan ini tetap ada untuk tombol Hapus */
+        display: flex;
+        align-items: center;
+      }
 
-        .todo-actions button {
-            padding: 8px 12px;
-            margin-left: 8px;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.85em;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-        }
+      .todo-actions button {
+        padding: 8px 12px;
+        margin-left: 8px;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.85em;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s;
+        white-space: nowrap;
+      }
 
-        /* Hapus gaya untuk tombol "Selesai" lama */
-        /* .complete-btn {
+      /* Hapus gaya untuk tombol "Selesai" lama */
+      /* .complete-btn {
             background-color: var(--complete-color);
             color: white;
         }
@@ -210,251 +210,251 @@
             background-color: #138496;
         } */
 
-        .delete-btn {
-            background-color: var(--danger-color);
-            color: white;
-        }
+      .delete-btn {
+        background-color: var(--danger-color);
+        color: white;
+      }
 
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
+      .delete-btn:hover {
+        background-color: #c82333;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="main-container">
-        <header>
-            <h1>Halo, <span id="username">Pengguna</span>!</h1>
-            <a href="/logout/">Logout</a>
-        </header>
+      <header>
+        <h1>Halo, <span id="username">Pengguna</span>!</h1>
+        <a href="/logout/">Logout</a>
+      </header>
 
-        <main>
-            <h2>Daftar Tugas</h2>
-            <form id="addTodoForm">
-                <input type="text" id="noteInput" placeholder="Apa yang perlu dilakukan?" required />
-                <button type="submit">Tambah</button>
-            </form>
-            <ul id="todoList">
-            </ul>
-        </main>
+      <main>
+        <h2>Daftar Tugas</h2>
+        <form id="addTodoForm">
+          <input
+            type="text"
+            id="noteInput"
+            placeholder="Apa yang perlu dilakukan?"
+            required
+          />
+          <button type="submit">Tambah</button>
+        </form>
+        <ul id="todoList"></ul>
+      </main>
     </div>
 
     <script>
-        const usernameSpan = document.getElementById('username');
-        const addTodoForm = document.getElementById('addTodoForm');
-        const noteInput = document.getElementById('noteInput');
-        const todoList = document.getElementById('todoList');
+      const usernameSpan = document.getElementById("username");
+      const addTodoForm = document.getElementById("addTodoForm");
+      const noteInput = document.getElementById("noteInput");
+      const todoList = document.getElementById("todoList");
 
-        // Mengganti endpoint updateStatus agar menerima status baru (pending/completed)
-        const api = {
-            delete: (id) => fetch(`/api/todos/${id}`, {
-                method: 'DELETE'
+      // Mengganti endpoint updateStatus agar menerima status baru (pending/completed)
+      const api = {
+        delete: (id) =>
+          fetch(`/api/todos/${id}`, {
+            method: "DELETE",
+          }),
+        updateStatus: (id, newStatus) =>
+          fetch(`/api/todos/${id}/status`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              status: newStatus,
             }),
-            updateStatus: (id, newStatus) => fetch(`/api/todos/${id}/status`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    status: newStatus
-                })
-            })
-        };
+          }),
+      };
 
-        const renderTodo = (todo) => {
-            const li = document.createElement('li');
-            li.setAttribute('data-id', todo.id);
-            // Menentukan status awal kelas berdasarkan data todo
-            const isCompleted = todo.status !== "pending";
+      const renderTodo = (todo) => {
+        const li = document.createElement("li");
+        li.setAttribute("data-id", todo.id);
+        // Menentukan status awal kelas berdasarkan data todo
+        const isCompleted = todo.status !== "pending";
 
-            if (isCompleted) {
-                li.classList.add('completed');
-            }
+        if (isCompleted) {
+          li.classList.add("completed");
+        }
 
-            // --- 1. Struktur Konten Baru untuk Checklist dan Catatan ---
-            const todoContent = document.createElement('div');
-            todoContent.classList.add('todo-content');
-            li.appendChild(todoContent);
+        // --- 1. Struktur Konten Baru untuk Checklist dan Catatan ---
+        const todoContent = document.createElement("div");
+        todoContent.classList.add("todo-content");
+        li.appendChild(todoContent);
 
-            // --- 2. Ganti Tombol dengan Input Checkbox ---
-            const completeCheckbox = document.createElement('input');
-            completeCheckbox.type = 'checkbox';
-            completeCheckbox.classList.add('complete-checkbox');
-            completeCheckbox.checked = isCompleted; // Set status checked awal
+        // --- 2. Ganti Tombol dengan Input Checkbox ---
+        const completeCheckbox = document.createElement("input");
+        completeCheckbox.type = "checkbox";
+        completeCheckbox.classList.add("complete-checkbox");
+        completeCheckbox.checked = isCompleted; // Set status checked awal
 
-            // Menambahkan event listener ke checkbox
-            completeCheckbox.addEventListener('change', (e) => {
-                // Status baru adalah kebalikan dari status checked saat ini
-                const newStatus = e.target.checked ? "completed" : "pending";
-                toggleComplete(li, todo.id, e.target.checked, completeCheckbox);
-            });
-
-            todoContent.appendChild(completeCheckbox);
-
-            const noteText = document.createElement('span');
-            noteText.classList.add('todo-note');
-            noteText.textContent = todo.note;
-            todoContent.appendChild(noteText); // Masukkan di dalam todoContent
-
-            const actionsDiv = document.createElement('div');
-            actionsDiv.classList.add('todo-actions');
-
-            // --- 3. Hapus Baris Pembuatan Tombol completeBtn Lama ---
-            // const completeBtn = document.createElement('button');
-            // ... (Kode tombol lama dihapus)
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.textContent = 'Hapus';
-            deleteBtn.addEventListener('click', () => deleteTodo(todo.id));
-            actionsDiv.appendChild(deleteBtn);
-
-            li.appendChild(actionsDiv);
-            return li;
-        };
-
-        const toggleComplete = async (li, id, isChecked, checkboxElement) => {
-            const currentStatus = !isChecked; // Status lama sebelum diklik
-            const newStatus = isChecked ? "completed" : "pending";
-
-            // Update UI segera
-            li.classList.toggle('completed', isChecked);
-            checkboxElement.disabled = true;
-
-            try {
-                // Panggil API dengan status baru yang benar (completed atau pending)
-                const response = await api.updateStatus(id, newStatus);
-                const result = await response.json();
-
-                if (result.success) {
-                    // Berhasil, tidak perlu fetch ulang jika API tidak mengubah urutan
-                    // Jika urutan diubah oleh server, panggil fetchTodos(); 
-                    // fetchTodos(); 
-                } else {
-                    // Jika gagal, kembalikan UI ke status lama
-                    li.classList.toggle('completed', currentStatus);
-                    checkboxElement.checked = currentStatus;
-                    console.error(result.message || 'Gagal mengubah status tugas.');
-                }
-            } catch (error) {
-                // Jika terjadi kesalahan jaringan, kembalikan UI ke status lama
-                li.classList.toggle('completed', currentStatus);
-                checkboxElement.checked = currentStatus;
-                console.error('Terjadi kesalahan jaringan saat mengubah status.', error);
-            } finally {
-                checkboxElement.disabled = false;
-            }
-        };
-
-        const deleteTodo = async (id) => {
-            if (!window.confirm('Yakin ingin menghapus tugas ini secara permanen?')) return;
-
-            try {
-                const response = await api.delete(id);
-                const result = await response.json();
-                if (result.success) {
-                    // Hapus elemen dari DOM
-                    const todoElement = document.querySelector(`li[data-id="${id}"]`);
-                    if (todoElement) {
-                        todoElement.remove();
-                    }
-                    fetchTodos(); // Panggil fetch untuk memastikan sinkronisasi UI
-                } else {
-                    console.error(result.message || 'Gagal menghapus tugas.');
-                }
-            } catch (error) {
-                console.error('Terjadi kesalahan jaringan saat menghapus.', error);
-            }
-        };
-
-        const fetchTodos = async () => {
-            try {
-                const response = await fetch('/api/todos');
-                const {
-                    success,
-                    data
-                } = await response.json();
-                if (success) {
-                    todoList.innerHTML = '';
-
-                    if (data.length === 0) {
-                        const emptyMessage = document.createElement('li');
-                        emptyMessage.textContent = 'Belum ada tugas. Tambahkan yang pertama!';
-                        emptyMessage.style.borderLeft = '5px solid var(--placeholder-color)';
-                        emptyMessage.style.fontStyle = 'italic';
-                        todoList.appendChild(emptyMessage);
-                        return;
-                    }
-
-                    // Logika pengurutan tetap dipertahankan
-                    data.sort((a, b) => {
-                        const statusA = a.status === "pending" ? 0 : 1;
-                        const statusB = b.status === "pending" ? 0 : 1;
-                        return statusA - statusB;
-                    });
-
-                    data.forEach((todo) => {
-                        todoList.appendChild(renderTodo(todo));
-                    });
-                }
-            } catch (error) {
-                console.error('Gagal mengambil todos:', error);
-            }
-        };
-
-        addTodoForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const note = noteInput.value.trim();
-            if (!note) return;
-
-            try {
-                const response = await fetch('/api/todos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        note,
-                        status: "pending"
-                    }), // Pastikan status awal adalah pending
-                });
-                const {
-                    success
-                } = await response.json();
-                if (success) {
-                    noteInput.value = '';
-                    fetchTodos();
-                } else {
-                    console.error('Gagal menambah tugas. Silakan coba lagi.');
-                }
-            } catch (error) {
-                console.error('Gagal menambah todo:', error);
-            }
+        // Menambahkan event listener ke checkbox
+        completeCheckbox.addEventListener("change", (e) => {
+          // Status baru adalah berdassa dari status checked saat ini
+          const newStatus = e.target.checked ? "completed" : "pending";
+          toggleComplete(li, todo.id, e.target.checked, completeCheckbox);
         });
 
-        // --- 6. Inisialisasi ---
-        (async () => {
-            try {
-                const response = await fetch('/api/me');
-                if (!response.ok) {
-                    window.location.href = '/login/';
-                    return;
-                }
-                const {
-                    success,
-                    data
-                } = await response.json();
-                if (success) {
-                    usernameSpan.textContent = data.username;
-                    fetchTodos();
-                } else {
-                    window.location.href = '/login/';
-                }
-            } catch (error) {
-                window.location.href = '/login/';
-            }
-        })();
-    </script>
-</body>
+        todoContent.appendChild(completeCheckbox);
 
+        const noteText = document.createElement("span");
+        noteText.classList.add("todo-note");
+        noteText.textContent = todo.note;
+        todoContent.appendChild(noteText);
+
+        const actionsDiv = document.createElement("div");
+        actionsDiv.classList.add("todo-actions");
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("delete-btn");
+        deleteBtn.textContent = "Hapus";
+        deleteBtn.addEventListener("click", () => deleteTodo(todo.id));
+        actionsDiv.appendChild(deleteBtn);
+
+        li.appendChild(actionsDiv);
+        return li;
+      };
+
+      const toggleComplete = async (li, id, isChecked, checkboxElement) => {
+        const currentStatus = !isChecked; // Status lama sebelum diklik
+        const newStatus = isChecked ? "completed" : "pending";
+
+        // Update UI segera
+        li.classList.toggle("completed", isChecked);
+        checkboxElement.disabled = true;
+
+        try {
+          const response = await api.updateStatus(id, newStatus);
+          const result = await response.json();
+
+          if (result.success) {
+            console.log("berhasil update note");
+          } else {
+            li.classList.toggle("completed", currentStatus);
+            checkboxElement.checked = currentStatus;
+            console.error(result.message || "Gagal mengubah status tugas.");
+          }
+        } catch (error) {
+          // Jika terjadi kesalahan jaringan, kembalikan UI ke status lama
+          li.classList.toggle("completed", currentStatus);
+          checkboxElement.checked = currentStatus;
+          console.error(
+            "Terjadi kesalahan jaringan saat mengubah status.",
+            error
+          );
+        } finally {
+          checkboxElement.disabled = false;
+        }
+      };
+
+      const deleteTodo = async (id) => {
+        if (!window.confirm("Yakin ingin menghapus tugas ini secara permanen?"))
+          return;
+
+        try {
+          const response = await api.delete(id);
+          const result = await response.json();
+          if (result.success) {
+            // Hapus elemen dari DOM
+            const todoElement = document.querySelector(`li[data-id="${id}"]`);
+            if (todoElement) {
+              todoElement.remove();
+            }
+            fetchTodos(); // Panggil fetch untuk memastikan sinkronisasi UI
+          } else {
+            console.error(result.message || "Gagal menghapus tugas.");
+          }
+        } catch (error) {
+          console.error("Terjadi kesalahan jaringan saat menghapus.", error);
+        }
+      };
+
+      const fetchTodos = async () => {
+        try {
+          const response = await fetch("/api/todos", {
+            method: "GET",
+            credentials: "include",
+          });
+
+          const { success, data } = await response.json();
+
+          if (success) {
+            todoList.innerHTML = "";
+
+            if (data.length === 0) {
+              const emptyMessage = document.createElement("li");
+              emptyMessage.textContent =
+                "Belum ada tugas. Tambahkan yang pertama!";
+              emptyMessage.style.borderLeft =
+                "5px solid var(--placeholder-color)";
+              emptyMessage.style.fontStyle = "italic";
+              todoList.appendChild(emptyMessage);
+              return;
+            }
+
+            data.sort((a, b) => {
+              const statusA = a.status === "pending" ? 0 : 1;
+              const statusB = b.status === "pending" ? 0 : 1;
+              return statusA - statusB;
+            });
+
+            data.forEach((todo) => {
+              todoList.appendChild(renderTodo(todo));
+            });
+          }
+        } catch (error) {
+          console.error("Gagal mengambil todos:", error);
+        }
+      };
+
+      addTodoForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const note = noteInput.value.trim();
+        if (!note) return;
+
+        try {
+          console.log("Menambah todo baru:", note);
+          const response = await fetch("/api/todos", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              note,
+              status: "pending",
+            }), // Pastikan status awal adalah pending
+          });
+          const { success } = await response.json();
+          if (success) {
+            noteInput.value = "";
+            fetchTodos();
+          } else {
+            console.error("Gagal menambah tugas. Silakan coba lagi.");
+          }
+        } catch (error) {
+          console.error("Gagal menambah todo:", error);
+        }
+      });
+
+      // --- 6. Inisialisasi ---
+      (async () => {
+        try {
+          const response = await fetch("/api/me");
+          if (!response.ok) {
+            window.location.href = "/login/";
+            return;
+          }
+          const { success, data } = await response.json();
+          if (success) {
+            usernameSpan.textContent = data.username;
+            fetchTodos();
+          } else {
+            window.location.href = "/login/";
+          }
+        } catch (error) {
+          window.location.href = "/login/";
+        }
+      })();
+    </script>
+  </body>
 </html>

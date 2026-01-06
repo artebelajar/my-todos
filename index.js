@@ -13,9 +13,9 @@ const app = new Hono();
 
 app.use("/*", serveStatic({ root: "./public" }));
 
-app.get("/", (c) => {
-  return c.html("<h1>Tim Pengembang</h1><h2>Nama Kalian</h2>");
-});
+// app.get("/", (c) => {
+//   return c.html("<h1>Tim Pengembang</h1><h2>Nama Kalian</h2>");
+// });
 
 app.post("/api/register", async (c) => {
   try {
@@ -97,27 +97,33 @@ app.use("/api/*", async (c, next) => {
 
 app.post("/api/todos", async (c) => {
   const token = getCookie(c, "token");
-  if (!token) return c.json({ success: false, message: "Unauthorized" }, 401);
+  if (!token)
+    return c.json({ success: false, message: "tidak di kenali" }, 401);
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET);
     const { note } = await c.req.json();
+    // console.log("User from token and note:", user, note);
     const newTodo = await db
       .insert(todos)
-      .values({ note, userId: user.id })
+      .values({ note, userId: Number(user.id) })
       .returning();
     return c.json({ success: true, data: newTodo[0] }, 201);
   } catch (error) {
-    return c.json({ success: false, message: "Unauthorized" }, 401);
+    console.error("Error creating todo:", error);
+    return c.json({ success: false, message: "server error" }, 500);
   }
 });
 
 app.get("/api/todos", async (c) => {
   const token = getCookie(c, "token");
-  if (!token) return c.json({ success: false, message: "Unauthorized" }, 401);
+  if (!token)
+    return c.json({ success: false, message: "tidak di kenali" }, 401);
+  // console.log("Token:", token);
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log("User from token:", user);
     const userTodos = await db.query.todos.findMany({
-      where: (todos, { eq }) => eq(todos.userId, user.id),
+      where: (todos, {eq} ) => eq(todos.userId, Number(user.id)),
     });
     return c.json({ success: true, data: userTodos });
   } catch (error) {
@@ -136,7 +142,7 @@ app.put("/api/todos/:id/status", async (c) => {
     .where(and(eq(todos.id, id), eq(todos.userId, Number(user.id))))
     .returning();
 
-    console.log(updatedTodo);
+  console.log(updatedTodo);
 
   if (updatedTodo.length === 0) {
     return c.json(
@@ -160,7 +166,7 @@ app.put("/api/todos/:id/status", async (c) => {
 
 app.delete("/api/todos/:id", async (c) => {
   const user = c.get("user");
-  const todoId = c.req.param("id");
+  const todoId = Number(c.req.param("id"));
 
   try {
     const deletedTodo = await db

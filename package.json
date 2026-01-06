@@ -10,8 +10,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push:pg",
     "db:seed": "node db/seed.js",
-    "start":"node index.js",
-    "build":"echo 'No dedicated build step needed, running install' && npm install"
+    "start": "node index.js",
+    "build": "echo 'No dedicated build step needed, running install' && npm install"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +28,8 @@
     "pg": "^8.16.3"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.31.5",
+    "drizzle-kit": "^0.31.8",
+    "esbuild": "^0.27.2",
     "nodemon": "^3.1.10"
   }
 }

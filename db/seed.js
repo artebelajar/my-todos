@@ -5,10 +5,7 @@ import { todos, users } from "./schema.js";
 
 async function seed() {
   console.log("Seeding database...");
-
-  //   await db.delete(todos);
-  //   await db.delete(users);
-
+  
   const plainPassword = "password123";
   const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
