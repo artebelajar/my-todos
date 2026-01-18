@@ -1,191 +1,199 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+
     <style>
-        /* Menggunakan font modern dari Google Fonts (misalnya Poppins) */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+      /* Menggunakan font modern dari Google Fonts (misalnya Poppins) */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
-        :root {
-            --primary-color: #007bff; /* Biru cerah yang elegan */
-            --primary-hover: #0056b3;
-            --background-color: #f8f9fa; /* Abu-abu sangat terang untuk latar belakang */
-            --card-color: #ffffff; /* Putih bersih untuk kontainer */
-            --text-color: #343a40; /* Abu-abu gelap untuk teks */
-            --placeholder-color: #adb5bd;
-            --border-color: #ced4da;
-            --error-color: #dc3545;
-        }
+      :root {
+        --primary-color: #007bff; /* Biru cerah yang elegan */
+        --primary-hover: #0056b3;
+        --background-color: #f8f9fa; /* Abu-abu sangat terang untuk latar belakang */
+        --card-color: #ffffff; /* Putih bersih untuk kontainer */
+        --text-color: #343a40; /* Abu-abu gelap untuk teks */
+        --placeholder-color: #adb5bd;
+        --border-color: #ced4da;
+        --error-color: #dc3545;
+      }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: var(--text-color);
-            line-height: 1.6;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--background-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        color: var(--text-color);
+        line-height: 1.6;
+      }
 
-        .container {
-            width: 100%;
-            max-width: 400px;
-            padding: 40px;
-            background-color: var(--card-color);
-            border-radius: 12px;
-            /* Bayangan elegan yang halus */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            /* Transisi untuk efek fokus */
-            transition: transform 0.3s ease-in-out;
-        }
+      .container {
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+        background-color: var(--card-color);
+        border-radius: 12px;
+        /* Bayangan elegan yang halus */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        /* Transisi untuk efek fokus */
+        transition: transform 0.3s ease-in-out;
+      }
 
-        .container:hover {
-            transform: translateY(-5px);
-        }
+      .container:hover {
+        transform: translateY(-5px);
+      }
 
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            font-weight: 600;
-            font-size: 2em;
-        }
+      h1 {
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-weight: 600;
+        font-size: 2em;
+      }
 
-        #loginForm {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+      #loginForm {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
 
-        /* Styling untuk Input */
-        #loginForm input {
-            width: 100%;
-            padding: 15px 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 16px;
-            box-sizing: border-box;
-            color: var(--text-color);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+      /* Styling untuk Input */
+      #loginForm input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+        color: var(--text-color);
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
+      }
 
-        #loginForm input::placeholder {
-            color: var(--placeholder-color);
-        }
+      #loginForm input::placeholder {
+        color: var(--placeholder-color);
+      }
 
-        #loginForm input:focus {
-            border-color: var(--primary-color);
-            /* Bayangan fokus yang lembut */
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-            outline: none;
-        }
+      #loginForm input:focus {
+        border-color: var(--primary-color);
+        /* Bayangan fokus yang lembut */
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        outline: none;
+      }
 
-        /* Styling untuk Tombol */
-        #loginForm button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.1s;
-        }
+      /* Styling untuk Tombol */
+      #loginForm button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition:
+          background-color 0.3s ease,
+          transform 0.1s;
+      }
 
-        #loginForm button:hover {
-            background-color: var(--primary-hover);
-        }
+      #loginForm button:hover {
+        background-color: var(--primary-hover);
+      }
 
-        #loginForm button:active {
-            transform: scale(0.99);
-        }
+      #loginForm button:active {
+        transform: scale(0.99);
+      }
 
-        /* Styling untuk Pesan */
-        #message {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 6px;
-            color: var(--error-color);
-            font-weight: 500;
-            text-align: left;
-            min-height: 20px; /* Memastikan ada ruang agar tata letak tidak bergeser */
-        }
+      /* Styling untuk Pesan */
+      #message {
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 6px;
+        color: var(--error-color);
+        font-weight: 500;
+        text-align: left;
+        min-height: 20px; /* Memastikan ada ruang agar tata letak tidak bergeser */
+      }
 
-        /* Styling untuk Tautan */
-        p {
-            font-size: 14px;
-            margin-top: 20px;
-        }
+      /* Styling untuk Tautan */
+      p {
+        font-size: 14px;
+        margin-top: 20px;
+      }
 
-        p a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
+      p a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
 
-        p a:hover {
-            color: var(--primary-hover);
-            text-decoration: underline;
-        }
+      p a:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <h1>Login <br>My-Todos</h1>
-        <div id="message"></div>
-        <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required />
-            <input type="password" id="password" placeholder="Password" required />
-            <button type="submit">Login</button>
-        </form>
-        <p>Belum punya akun? <a href="/register/">Daftar di sini</a></p>
+      <h1>Login <br />My-Todos</h1>
+      <div id="message"></div>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+      <p>Belum punya akun? <a href="/register/">Daftar di sini</a></p>
     </div>
 
     <script>
-        const form = document.getElementById('loginForm');
-        const messageDiv = document.getElementById('message');
+      
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            messageDiv.textContent = ''; // Hapus pesan sebelumnya
+      const form = document.getElementById("loginForm");
+      const messageDiv = document.getElementById("message");
 
-            try {
-                // Simulasi respons (ganti dengan endpoint Anda yang sebenarnya)
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password }),
-                });
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        messageDiv.textContent = ""; // Hapus pesan sebelumnya
 
-                const result = await response.json();
+        try {
+          // Simulasi respons (ganti dengan endpoint Anda yang sebenarnya)
+          const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
 
-                console.log('Respons login:', result);
+          const result = await response.json();
 
-                if (result.success) {
-                    messageDiv.style.color = 'green';
-                    messageDiv.textContent = 'Login berhasil! Mengalihkan...';
-                    window.location.href = '/todos/';
-                } else {
-                    messageDiv.style.color = 'var(--error-color)';
-                    messageDiv.textContent = result.message || 'Login gagal! Silakan periksa kembali Username dan Password Anda.';
-                }
-            } catch (error) {
-                messageDiv.style.color = 'var(--error-color)';
-                messageDiv.textContent = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
-            }
-        });
+          console.log("Respons login:", result);
+
+          if (result.success) {
+            messageDiv.style.color = "green";
+            messageDiv.textContent = "Login berhasil! Mengalihkan...";
+            window.location.href = "/todos/";
+          } else {
+            messageDiv.style.color = "var(--error-color)";
+            messageDiv.textContent =
+              result.message ||
+              "Login gagal! Silakan periksa kembali Username dan Password Anda.";
+          }
+        } catch (error) {
+          messageDiv.style.color = "var(--error-color)";
+          messageDiv.textContent =
+            "Terjadi kesalahan jaringan. Silakan coba lagi.";
+        }
+      });
     </script>
-</body>
-
+  </body>
 </html>
