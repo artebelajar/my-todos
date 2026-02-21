@@ -27,8 +27,11 @@ app.use("/*", serveStatic({ root: "./public" }));
 // });
 
 registerRoute(app);
+
 loginRoute(app);
+
 checkAuth(app);
+
 logoutRoute(app);
 app.use("/api/*", async (c, next) => {
   const token = getCookie(c, "token");
